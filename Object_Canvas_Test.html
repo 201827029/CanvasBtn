@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캔버스 버튼 객체화</title>
+  <link rel="stylesheet" href="canvas.css">
+</head>
+
+<body>
+  <canvas id="myCanvas" width="300" height="300" style="border:3px solid red;"></canvas>
+    <br>
+    <canvas id="Canvas2" width="300" height="300" style="border:3px solid red;"></canvas>
+
+    <script>
+      var c = document.getElementById("myCanvas"); //ID를 찾아서 C에 초기화
+      var ctx = c.getContext("2d"); //캔버스를 2D로 설정
+      var click = false;
+
+      var c2 = document.getElementById("Canvas2");
+      var ctx2 = c2.getContext("2d");
+
+      class canvas {
+
+        constructor(c, ctx, btn_Color, x, y, plus_x, plus_y) {
+          this.c = c;
+          this.ctx = ctx;
+          this.btn_Color = btn_Color;
+          this.x = x;
+          this.y = y;
+          this.plus_x = plus_x;
+          this.plus_y = plus_y;
+        }
+
+        createBtn() {
+          this.ctx.fillStyle = `${this.btn_Color}`;
+          this.ctx.fillRect(this.x, this.y, this.plus_x, this.plus_y);
+        }
+
+        mousemove() {
+          if (click == false) {
+            this.ctx.fillStyle = "green";
+            this.ctx.fillRect(this.x, this.y, this.plus_x, this.plus_y);
+          }
+        }
+
+        mouseover() {
+          if (click == false) {
+            this.ctx.fillStyle = `${this.btn_Color}`;
+            this.ctx.fillRect(this.x, this.y, this.plus_x, this.plus_y);
+          }
+        }
+
+        mouseclickdown() {
+          this.ctx.fillStyle = "grey";
+          this.ctx.fillRect(this.x, this.y, this.plus_x, this.plus_y);
+        }
+
+        mouseclickup() {
+          this.ctx.fillStyle = "green";
+          this.ctx.fillRect(this.x, this.y, this.plus_x, this.plus_y);
+        }
+
+      }
+
+
+      var canvas1 = new canvas(c, ctx, "#B7FAAA", 50, 50, 100, 100);
+      canvas1.createBtn();
+
+      var canvas2 = new canvas(c2, ctx2, "#AAFAEA", 50, 50, 100, 100);
+      canvas2.createBtn();
+
+      c.onmousemove = function(event) {
+        const x = event.clientX - ctx.canvas.offsetLeft;//마우스의 좌표와 캔버스의 좌표를 계산하여 캔버스내 마우스 좌표를 계산
+        const y = event.clientY - ctx.canvas.offsetTop;
+        if (x >= 50 && x <= 150 && y >= 50 && y <= 150) {
+          canvas1.mousemove();
+        } else {
+          canvas1.mouseover();
+        }
+      }
+
+      c.onmousedown = function(event) {
+        const x = event.clientX - ctx.canvas.offsetLeft;
+        const y = event.clientY - ctx.canvas.offsetTop;
+        click = true;
+        if (x >= 50 && x <= 150 && y >= 50 && y <= 150) {
+          canvas1.mouseclickdown();
+        }
+      }
+
+      c.onmouseup = function(event) {
+        const x = event.clientX - ctx.canvas.offsetLeft;
+        const y = event.clientY - ctx.canvas.offsetTop;
+        click = false;
+        if (x >= 50 && x <= 150 && y >= 50 && y <= 150) {
+          canvas1.mouseclickup();
+        }
+      }
+
+
+      c2.onmousemove = function(event) {
+        const x = event.clientX - ctx2.canvas.offsetLeft;//마우스의 좌표와 캔버스의 좌표를 계산하여 캔버스내 마우스 좌표를 계산
+        const y = event.clientY - ctx2.canvas.offsetTop;
+        if (x >= 50 && x <= 150 && y >= 50 && y <= 150) {
+          canvas2.mousemove();
+        } else {
+          canvas2.mouseover();
+        }
+      }
+
+      c2.onmousedown = function(event) {
+        const x = event.clientX - ctx2.canvas.offsetLeft;
+        const y = event.clientY - ctx2.canvas.offsetTop;
+        click = true;
+        if (x >= 50 && x <= 150 && y >= 50 && y <= 150) {
+          canvas2.mouseclickdown();
+        }
+      }
+
+      c2.onmouseup = function(event) {
+        const x = event.clientX - ctx2.canvas.offsetLeft;
+        const y = event.clientY - ctx2.canvas.offsetTop;
+        click = false;
+        if (x >= 50 && x <= 150 && y >= 50 && y <= 150) {
+          canvas2.mouseclickup();
+        }
+      }
+
+    </script>
+</body>
+</html>

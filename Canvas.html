@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas btn</title>
+    <link rel="stylesheet" href="canvas.css">
+</head>
+<body>
+      <canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
+
+        <script>
+          var c = document.getElementById("myCanvas");
+          var ctx = c.getContext("2d");
+          var click = false;
+
+          ctx.fillStyle = "black";
+          ctx.fillRect(50,50,100,100);
+
+          function mousemove()
+          {
+            if(click == false)
+            {
+              ctx.fillStyle = "green";
+              ctx.fillRect(50,50,100,100);
+            }
+          }
+
+          function mouseover()
+          {
+            if(click == false)
+            {
+              ctx.fillStyle = "black";
+              ctx.fillRect(50,50,100,100);
+            }
+          }
+
+          function mouseclickdown()
+          {
+              ctx.fillStyle = "grey";
+              ctx.fillRect(50,50,100,100);
+          }
+
+          function mouseclickup()
+          {
+              ctx.fillStyle = "green";
+              ctx.fillRect(50,50,100,100);
+          }
+
+          c.onmousemove = function(event)
+          {
+            const x = event.clientX - ctx.canvas.offsetLeft;
+            const y = event.clientY - ctx.canvas.offsetTop;
+            if(x >= 50 && x <= 150 && y >= 50 && y <= 150)
+            {
+              mousemove();
+            }
+            else
+            {
+              mouseover();
+            }
+          }
+
+          c.onmousedown = function(event)
+          {
+            const x = event.clientX - ctx.canvas.offsetLeft;
+            const y = event.clientY - ctx.canvas.offsetTop;
+            click = true;
+            if(x >= 50 && x <= 150 && y >= 50 && y <= 150)
+            {
+              mouseclickdown();
+            }
+          }
+
+          c.onmouseup = function(event)
+          {
+            const x = event.clientX - ctx.canvas.offsetLeft;
+            const y = event.clientY - ctx.canvas.offsetTop;
+            click = false;
+            if(x >= 50 && x <= 150 && y >= 50 && y <= 150)
+            {
+              mouseclickup();
+            }
+          }
+
+      </script>
+  </body>
+</html>
